@@ -1,8 +1,8 @@
 [ -d $CONFDIR ] || mkdir -p $CONFDIR
 cat $TEMPLATE > $CONFDIR/$domain_name.conf
 #Générer le template toi même
-sed s  "/nom_de_domaine/$domain_name" $CONFFILE
-sed s "/racine_projet/$WEBDIR" $CONFFILE
+sed -i "s/nom_de_domaine/$domain_name/g" $CONFFILE
+sed -i "s/racine_projet/$WEBDIR/g" $CONFFILE
 echo "Nous venons de configurer le fichier, nous allons à
 présent activer le site et redémarrer le serveur"
 a2ensite $domain_name.conf
