@@ -7,15 +7,15 @@
 #                                                                             #
 ###############################################################################
 PS3="Veuiller sélectionner un nombre:"
-WEDIR=/var/www/$domain_name
+WEBDIR=/var/www/$domain_name
 CONFDIR=/etc/apache2/sites-available
 TEMPLATE=./static_files/templates/template.txt
-CONFFILE=$CONFDIR/$domaine_name.conf
+CONFFILE=$CONFDIR/$domain_name.conf
 if [ $# -eq 0 ]
 then
-    read -p "Entrer le nom du domaine à configurer svp: " domaine_name
+    read -p "Entrer le nom du domain à configurer svp: " domain_name
 else
-    domaine_name=$1
+    domain_name=$1
     
 fi
 echo "Hello! Prenez place et observez la maggie, je vais créer vos vhosts pour
@@ -26,15 +26,24 @@ while true; do
         case $host_type in
             HTTP)
                 [ -d $CONFDIR ] || mkdir -p $CONFDIR
-                cat $TEMPLATE > $CONFDIR/$domain_name.conf
+                cp $TEMPLATE  $CONFDIR/$domain_name.conf
+		if [ $? -eq 0 ]
+		then
+			echo "Fichier bien créé"
+		else
+			echo "Pas pu créer le fichier de config"
+		fi
+		#sudo cp ./static_files/templates/template.txt /etc/apache2/sites-available/$domain_name.conh
                 #Générer le template toi même
-                sed -i "s/nom_de_domaine/$domain_name/g" $CONFFILE
-                sed -i "s/racine_projet/$WEBDIR/g" $CONFFILE
+		echo "Voici webdir: $WEBDIR"
+                sed -i "s/nom_de_domaine/$domain_name/g" /etc/apache2/sites-available/$domain_name.conf
+                #sed -i "s/racine_projet/$domain_name/g" /etc/apache2/sites-available/siepki.org.conf
+                sed -i "/ServerName/a  DocumentRoot $WEBDIR$domain_name" /etc/apache2/sites-available/$domain_name.conf 
                 echo "Nous venons de configurer le fichier, nous allons à
                 présent activer le site et redémarrer le serveur"
                 a2ensite $domain_name.conf
-                a2dissite 000-default.conf
-                systemctl restart apache2
+                #a2dissite 000-default.conf
+               # systemctl restart apache2
                 #Vérifier après l'état des services afin de pouvoir avertir
                 #le user en cas de problème...
                 echo "Configuration des droits des dossiers..."
@@ -57,19 +66,19 @@ while true; do
                             -out /etc/ssl/certs/apache-selfsigned.crt
                             echo "Aller, il est temps de configurer apache pour
                             qu'il utilise TLS"
-                            sed s "/80/443" $CONFFILE
+                            sed -i 's/80/443/g' /etc/apache2/sites-available/$domain_name.conf
                             sed -i "/<\/VirtualHost>/i SSLEngine on\
         \n SSLCertificateFile /etc/ssl/certs\
         /apache-selfsigned.crt\
         \n  SSLCertificateKeyFile\
         /etc/ssl/private/\
-                            apache-selfsigned.key" $CONFFILE
+                            apache-selfsigned.key" /etc/apache2/sites-available/$domain_name.conf
                             echo "Nous allons à présent rédiriger tous les
                             traffics http en https...."
                             sed -i "/<\/VirtualHost>/a <VirtualHost *:80>\
         \n ServerName $domain_name\
         \n Redirect / https://$domain_name \
-                            \n <\/VirtualHost>" $CONFFILE
+                            \n <\/VirtualHost>" /etc/apache2/sites-available/$domain_name.conf
                             break
                         ;;
                         Non)
@@ -84,15 +93,16 @@ while true; do
             
             HTTPS)
                 [ -d $CONFDIR ] || mkdir -p $CONFDIR
-                cat $TEMPLATE > $CONFDIR/$domain_name.conf
+                cp $TEMPLATE  $CONFDIR/$domain_name.conf
                 #Générer le template toi même
-                sed -i "s/nom_de_domaine/$domain_name/g" $CONFFILE
-                sed -i "s/racine_projet/$WEBDIR/g" $CONFFILE
+                sed -i "s/nom_de_domaine/$domain_name/g" /etc/apache2/sites-available/$domain_name.conf
+                #sed -i "s/racine_projet/$domain_name/g" /etc/apache2/sites-available/siepki.org.conf
+                sed -i "/ServerName/a  DocumentRoot $WEBDIR$domain_name" /etc/apache2/sites-available/$domain_name.conf 
                 echo "Nous venons de configurer le fichier, nous allons à
                 présent activer le site et redémarrer le serveur"
                 a2ensite $domain_name.conf
-                a2dissite 000-default.conf
-                systemctl restart apache2
+                #a2dissite 000-default.conf
+               # systemctl restart apache2
                 #Vérifier après l'état des services afin de pouvoir avertir
                 #le user en cas de problème...
                 echo "Configuration des droits des dossiers..."
@@ -109,19 +119,17 @@ while true; do
                 -out /etc/ssl/certs/apache-selfsigned.crt
                 echo "Aller, il est temps de configurer apache pour
                 qu'il utilise TLS"
-                sed s "/80/443" $CONFFILE
+                sed -i "s/80/443/g" /etc/apache2/sites-available/$domain_name.conf
                 sed -i "/<\/VirtualHost>/i SSLEngine on\
-        \n SSLCertificateFile /etc/ssl/certs\
-        /apache-selfsigned.crt\
+        \n SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt\
         \n  SSLCertificateKeyFile\
-        /etc/ssl/private/\
-                apache-selfsigned.key" $CONFFILE
+        /etc/ssl/private/apache-selfsigned.key" /etc/apache2/sites-available/$domain_name.conf
                 echo "Nous allons à présent rédiriger tous les
                 traffics http en https...."
                 sed -i "/<\/VirtualHost>/a <VirtualHost *:80>\
         \n ServerName $domain_name\
         \n Redirect / https://$domain_name \
-                \n <\/VirtualHost>" $CONFFILE
+                \n <\/VirtualHost>" /etc/apache2/sites-available/$domain_name.conf
                 break
             ;;
             QUITTER)
