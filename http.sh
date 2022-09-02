@@ -1,5 +1,5 @@
 [ -d $CONFDIR ] || mkdir -p $CONFDIR
-cp $TEMPLATE $CONFDIR/$domain_name.conf
+cat $TEMPLATE > $CONFDIR/$domain_name.conf
 #Générer le template toi même
 sed s  "/nom_de_domaine/$domain_name" $CONFFILE
 sed s "/racine_projet/$WEBDIR" $CONFFILE
