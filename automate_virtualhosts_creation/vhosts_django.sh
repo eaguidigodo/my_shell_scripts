@@ -9,7 +9,7 @@
 PS3="Veuiller sélectionner un nombre:"
 WEBDIR=/var/www/
 CONFDIR=/etc/apache2/sites-available
-TEMPLATE=./static_files/templates/template_laravel.txt
+TEMPLATE=./static_files/templates/template_django.txt
 
 if [ $# -eq 0 ]
 then
@@ -137,6 +137,8 @@ while true; do
         \n ServerName $domain_name\
         \n Redirect / https://$domain_name \
                 \n <\/VirtualHost>" /etc/apache2/sites-available/$domain_name.conf
+                chown :www-data $project_path
+                systemctl restart apache2
                 break
             ;;
             QUITTER)
