@@ -1,0 +1,24 @@
+<VirtualHost *:80>
+	ServerAdmin test@example.com
+	ServerName nom_de_domaine
+	DocumentRoot racine_projet
+	
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    
+    Alias /static racine_projet/static
+    <Directory racine_projet/static>
+        Require all granted
+    </Directory>
+    
+    <Directory core_folder>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+    
+    WSGIDaemonProcess myproject python-home=env_path python-path=racine_projet
+    WSGIProcessGroup project_name
+    WSGIScriptAlias / core_folder/wsgi.py
+
+</VirtualHost>
