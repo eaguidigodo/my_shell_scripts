@@ -99,7 +99,11 @@ while true; do
             HTTPS)
                 cp $TEMPLATE  $CONFDIR/$domain_name.conf
                 sed s/nom_de_domaine/$domain_name.local/ $CONFDIR/$domain_name.conf
-                sed s/racine_projet/$project_path/ $CONFDIR/$domain_name.conf
+                sed s/racine_projet/$project_path/g $CONFDIR/$domain_name.conf
+                sed s/core_folder/$core_folder/g $CONFDIR/$domain_name.conf
+                sed s/project_name/$project_name/g $CONFDIR/$domain_name.conf
+                sed s/env_path/$env_path/g $CONFDIR/$domain_name.conf
+                sudo chown :www-data $project_path
                 #sed -i "s/racine_projet/$domain_name/g" /etc/apache2/sites-available/siepki.org.conf
                 # sed -i "/ServerName/a  DocumentRoot $WEBDIR$domain_name" /etc/apache2/sites-available/$domain_name.conf
                 echo "Nous venons de configurer le fichier, nous allons à
@@ -134,7 +138,7 @@ while true; do
                 echo "Nous allons à présent rédiriger tous les
                 traffics http en https...."
                 sed -i "/<\/VirtualHost>/a <VirtualHost *:80>\
-        \n ServerName $domain_name\
+        \n ServerName $domain_name.local\
         \n Redirect / https://$domain_name \
                 \n <\/VirtualHost>" /etc/apache2/sites-available/$domain_name.conf
                 chown :www-data $project_path

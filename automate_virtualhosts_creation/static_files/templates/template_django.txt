@@ -1,6 +1,6 @@
 <VirtualHost *:80>
 	ServerAdmin test@example.com
-	ServerName nom_de_domaine
+	ServerName domaine
 	DocumentRoot racine_projet
 	
 	ErrorLog ${APACHE_LOG_DIR}/error.log
