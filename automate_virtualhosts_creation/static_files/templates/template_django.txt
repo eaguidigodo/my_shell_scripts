@@ -17,7 +17,7 @@
         </Files>
     </Directory>
     
-    WSGIDaemonProcess myproject python-home=env_path python-path=racine_projet
+    WSGIDaemonProcess project_name python-home=env_path python-path=racine_projet
     WSGIProcessGroup project_name
     WSGIScriptAlias / core_folder/wsgi.py
 

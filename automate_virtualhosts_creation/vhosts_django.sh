@@ -98,11 +98,11 @@ while true; do
             
             HTTPS)
                 cp $TEMPLATE  $CONFDIR/$domain_name.conf
-                sed -i 's/nom_de_domaine/$domain_name.local/ '$CONFDIR/$domain_name.conf 
-                sed -i 's/racine_projet/$WEBDIR$project_path/g' $CONFDIR/$domain_name.conf 
-                sed -i 's/core_folder/$core_folder/g' $CONFDIR/$domain_name.conf 
-                sed -i 's/project_name/$project_name/g' $CONFDIR/$domain_name.conf 
-                sed -i 's/env_path/$env_path/g' $CONFDIR/$domain_name.conf 
+                sed -i "s/nom_de_domaine/$domain_name.local/" $CONFDIR/$domain_name.conf 
+                sed -i "s/racine_projet/$WEBDIR$project_path/g" $CONFDIR/$domain_name.conf 
+                sed -i "s/core_folder/$core_folder/g" $CONFDIR/$domain_name.conf 
+                sed -i "s/project_name/$project_name/g" $CONFDIR/$domain_name.conf 
+                sed -i "s/env_path/$env_path/g" $CONFDIR/$domain_name.conf 
                 sudo chown :www-data $project_path
                 #sed -i "s/racine_projet/$domain_name/g" /etc/apache2/sites-available/siepki.org.conf
                 # sed -i "/ServerName/a  DocumentRoot $WEBDIR$domain_name" /etc/apache2/sites-available/$domain_name.conf
