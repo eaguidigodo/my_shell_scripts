@@ -18,8 +18,12 @@ else
     domain_name=$1
 
 fi
-project_path_in_array=(${project_path//\/ /}) #split la variable en plusieurs composantes
+echo "Je te montre le project_path: $project_path"
+project_path_in_array=(${project_path//\/ / }) #split la variable en plusieurs composantes
+echo "voici le resultat du split: $project_path_in_array"
 len=${#project_path_in_array[@]}              #recupère la taille du tableau
+echo "La longueur que je récupère?? : $len"
+
 CONFFILE=${project_path_in_array[$len]}
 
 echo "Pose ton coeur j'arrive à bien récupérer la variable: $CONFFILE"
