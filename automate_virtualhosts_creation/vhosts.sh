@@ -21,8 +21,9 @@ fi
 project_path_in_array=(${project_path//\/ /}) #split la variable en plusieurs composantes
 len=${#project_path_in_array[@]}              #recupère la taille du tableau
 CONFFILE=${project_path_in_array[$len]}
+
 echo "Pose ton coeur j'arrive à bien récupérer la variable: $CONFFILE"
-if [ -d $WEBDIR/$project_path ]; then
+if [ -d $WEBDIR$project_path ]; then
     
 while true; do
     select host_type in HTTP HTTPS QUITTER; do
