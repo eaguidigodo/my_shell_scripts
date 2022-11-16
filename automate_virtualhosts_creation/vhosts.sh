@@ -24,13 +24,6 @@ CONFFILE=${project_path_in_array[$len]}
 echo "Pose ton coeur j'arrive à bien récupérer la variable: $CONFFILE"
 if [ -d $WEBDIR/$project_path ]; then
     
-else
-    echo "Le répertoire indiqué n'existe pas. Veuiller le cloner svp, en attendant son implémentation"
-    exit 0
-fi
-echo "Hello! Prenez place et observez la maggie, je vais créer vos vhosts pour
-vous. Prêt?? C'est parti!"
-
 while true; do
     select host_type in HTTP HTTPS QUITTER; do
         case $host_type in
@@ -123,6 +116,13 @@ while true; do
 
     done
 done
+
+else
+    echo "Le répertoire indiqué n'existe pas. Veuiller le cloner svp, en attendant son implémentation"
+    exit 0
+fi
+echo "Hello! Prenez place et observez la maggie, je vais créer vos vhosts pour
+vous. Prêt?? C'est parti!"
 
 #il faut ensuite lui demander s'il a envie de continuer en https
 #sed s/test@example.com/$1/ $1.txt > $CONFDIR/$1.conf
