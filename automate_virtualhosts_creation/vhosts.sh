@@ -7,13 +7,13 @@
 #                                                                             #
 ###############################################################################
 PS3="Veuiller sélectionner un nombre:"
-WEBDIR=/var/www/
-CONFDIR=/etc/apache2/sites-available
-TEMPLATE=./static_files/templates/template_laravel.txt
+export WEBDIR=/var/www/
+export CONFDIR=/etc/apache2/sites-available
+export TEMPLATE=./static_files/templates/template_laravel.txt
 
 if [ $# -eq 0 ]; then
     read -p "Veuillez compléter le chemin de votre projet svp (/var/www/): " project_path
-
+    export project_path
 else
     domain_name=$1
 
