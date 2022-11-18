@@ -31,7 +31,7 @@ echo "regarde le path complet:  $WEBDIR$project_path "
 echo "Pose ton coeur j'arrive à bien récupérer la variable: $CONFFILE"
 if [ -d $WEBDIR$project_path ]; then
     
-while true; do
+#while true; do
     select host_type in HTTP HTTPS QUITTER; do
         case $host_type in
         HTTP)
@@ -122,7 +122,7 @@ while true; do
         esac
 
     done
-done
+#done
 
 else
     echo "Le répertoire indiqué n'existe pas. Veuiller le cloner svp, en attendant son implémentation"

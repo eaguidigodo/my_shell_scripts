@@ -1,4 +1,8 @@
-[ -d $CONFDIR ] || mkdir -p $CONFDIR
+#!/bin/bash
+
+
+#[ -d $CONFDIR ] || mkdir -p $CONFDIR
+echo "Yo j'ai été appelé, me voici"
 cat $TEMPLATE > $CONFDIR/$CONFFILE.conf
 #Générer le template toi même
 
