@@ -4,6 +4,7 @@
 #[ -d $CONFDIR ] || mkdir -p $CONFDIR
 echo "Yo j'ai été appelé, me voici"
 cat $TEMPLATE > $CONFDIR/$CONFFILE.conf
+echo "On dirait que je me bloque ici"
 #Générer le template toi même
 
 sed -i "s@nom_de_domaine@$CONFFILE.local/g" $CONFFILE.conf
