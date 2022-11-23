@@ -26,6 +26,10 @@ echo "La longueur que je récupère?? : $len"
 
 CONFFILE=${project_path_in_array[$len - 1]}
 
+echo "Avec la variable: $CONFFILE"
+echo "Avec la variable tableau: ${project_path_in_array[$len - 1]}"
+echo "Avec la variable tableau direct: ${project_path_in_array[1]}"
+
 echo "regarde le path complet:  $WEBDIR$project_path "
 
 echo "Pose ton coeur j'arrive à bien récupérer la variable: $CONFFILE"
