@@ -5,6 +5,7 @@
 echo "Yo j'ai été appelé, me voici"
 echo "Voici la variable template: $TEMPLATE"
 cat $TEMPLATE > $CONFDIR/$CONFFILE.conf
+echo "Je suis le conffile: $CONFFILE, $CONFFILE.conf"
 echo "On dirait que je me bloque ici"
 #Générer le template toi même
 
