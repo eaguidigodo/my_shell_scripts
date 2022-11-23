@@ -24,7 +24,7 @@ echo "voici le resultat du split: ${project_path_in_array[@]}"
 len=${#project_path_in_array[@]}              #recupère la taille du tableau
 echo "La longueur que je récupère?? : $len"
 
-CONFFILE=${project_path_in_array[$len - 1]}
+export CONFFILE=${project_path_in_array[$len - 1]}
 
 echo "Avec la variable: $CONFFILE"
 echo "Avec la variable tableau: ${project_path_in_array[$len - 1]}"
